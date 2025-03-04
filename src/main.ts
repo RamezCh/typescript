@@ -49,3 +49,33 @@ function generateTree(n: number) {
     }
 }
 generateTree(5);
+
+// Second Typescript Day
+
+console.log('------------- New Day ------------------');
+// They do not affect original array
+const numArr: number[] = [1, 2, 3, 4, 5];
+console.log('Before: ' + numArr);
+const doubledNums: number[] = numArr.map( (num: number) => num * 2);
+console.log('After: ' + doubledNums);
+
+const words: string[] = ['Open', 'Sasamee'];
+console.log('Before: ' + words);
+const filteredWords: string[] = words.filter( (word: string) => word.length > 5);
+console.log('After: ' + filteredWords);
+
+const sum: number = numArr.reduce((accumulator: number, currentValue: number): number => accumulator + currentValue);
+console.log(sum);
+console.log(numArr.some( (num: number) => num > 15));
+
+const list = [15, 6, 3213, 9, 0, 12, 8464 , 1, 1264, 481, 186, 1031, 194];
+// b - a = descend, a - b = ascend
+const sortedList = list.sort((a, b): number => b - a);
+console.log(sortedList);
+const squaredList = sortedList.map( (num: number) => num * num);
+console.log(squaredList);
+const removeLowestTwoNumsAndHighestFourNumsFromList = squaredList.slice(4, squaredList.length - 2);
+console.log(removeLowestTwoNumsAndHighestFourNumsFromList);
+const removeDivisibleByFourFromPrevList = removeLowestTwoNumsAndHighestFourNumsFromList.filter( (num: number) => num % 4 == 0);
+console.log(removeDivisibleByFourFromPrevList);
+console.log('Ad up all the numbers: ' + removeDivisibleByFourFromPrevList.reduce( (acc, curr) => acc + curr));
