@@ -78,4 +78,111 @@ const removeLowestTwoNumsAndHighestFourNumsFromList = squaredList.slice(4, squar
 console.log(removeLowestTwoNumsAndHighestFourNumsFromList);
 const removeDivisibleByFourFromPrevList = removeLowestTwoNumsAndHighestFourNumsFromList.filter( (num: number) => num % 4 == 0);
 console.log(removeDivisibleByFourFromPrevList);
-console.log('Ad up all the numbers: ' + removeDivisibleByFourFromPrevList.reduce( (acc, curr) => acc + curr));
+console.log('Add up all the numbers: ' + removeDivisibleByFourFromPrevList.reduce( (acc, curr) => acc + curr));
+
+// Third Task
+
+console.log('--------------------- New Task New Me -------------------------');
+
+type Grade = 1 | 2 | 3 | 4 | 5 | 6 | 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | undefined;
+
+type Student = {
+    firstName: string;
+    lastName: string;
+    age: number;
+    grades: Grade[];
+}
+
+const printStudent = (student: Student) => {
+    const nameHeader = `${student.firstName} ${student.lastName} (${student.age})`;
+    console.log(nameHeader);
+    console.log("=".repeat(nameHeader.length));
+    console.log("Grades: " + student.grades.map(g => g === undefined ? '*' : g).join(", "));
+};
+
+const student: Student = {
+    firstName: "Anton",
+    lastName: "Meier",
+    age: 17,
+    grades: [1, 4, 3, 1, 3, 2, 1, 2],
+};
+
+printStudent(student);
+
+const students: Student[] = [
+    { firstName: "Anton", lastName: "Meier", age: 17, grades: ["A", 2, undefined, 3, 1, "B", undefined, 5] },
+    { firstName: "Berta", lastName: "Müller", age: 17, grades: ["A", undefined, 1] },
+    { firstName: "Cäsar", lastName: "Schmidt", age: 17, grades: ["A", 1, undefined, 3, 2, 4, 5] },
+];
+
+const printAllStudents = (students: Student[]) => {
+    students.forEach(printStudent);
+};
+
+printAllStudents(students);
+
+// Bonus: Assign grades to subjects
+type SubjectGrades = {
+    [subject: string]: Grade[];
+};
+
+type StudentWithSubjects = {
+    firstName: string;
+    lastName: string;
+    age: number;
+    subjects: SubjectGrades;
+};
+
+const studentWithSubjects: StudentWithSubjects = {
+    firstName: "Florian",
+    lastName: "Weber",
+    age: 14,
+    subjects: {
+        Sport: ["A", 1, undefined],
+        Kunst: [3, 2, 4, 5],
+        Mathe: [1, 2, "A"],
+    }
+};
+
+const printStudentWithSubjects = (student: StudentWithSubjects) => {
+    const nameHeader = `${student.firstName} ${student.lastName} (${student.age})`;
+    console.log(nameHeader);
+    console.log("=".repeat(nameHeader.length));
+    console.log("\nNoten:");
+    for (const [subject, grades] of Object.entries(student.subjects)) {
+        console.log(`${subject}: ${grades.map(g => g === undefined ? '*' : g).join(", ")}`);
+    }
+};
+
+printStudentWithSubjects(studentWithSubjects);
+
+// Bonus: Calculate average grade
+const calculateAverage = (grades: Grade[]): number => {
+    const validGrades = grades.filter(g => typeof g === 'number') as number[];
+    return validGrades.length ? validGrades.reduce((a, b) => a + b, 0) / validGrades.length : 0;
+};
+
+const printAverageGrades = (students: Student[]) => {
+    students.forEach(student => {
+        console.log(`${student.firstName} ${student.lastName} (Avg Grade: ${calculateAverage(student.grades).toFixed(2)})`);
+    });
+};
+
+printAverageGrades(students);
+
+// Bonus: Rick and Morty API processing
+const rickMortyCharacters = [
+    { name: "Rick Sanchez", species: "Human", status: "Alive", origin: { name: "Earth" } },
+    { name: "Morty Smith", species: "Human", status: "Alive", origin: { name: "Earth" } },
+    { name: "Birdperson", species: "Bird-Person", status: "Alive", origin: { name: "Bird World" } },
+    { name: "Summer Smith", species: "Human", status: "Alive", origin: { name: "Earth" } },
+    { name: "Squanchy", species: "Cat-Person", status: "Alive", origin: { name: "Squanch" } },
+];
+
+const getLivingHumans = (characters: any[]) => characters.filter(c => c.species === "Human" && c.status === "Alive");
+const getCharacterNames = (characters: any[]) => characters.map(c => c.name);
+const getSpecialObjects = (characters: any[]) => characters.map(c => ({ name: c.name, origin: c.origin.name }));
+
+console.log("Living Humans:", getLivingHumans(rickMortyCharacters));
+console.log("Character Names:", getCharacterNames(rickMortyCharacters));
+console.log("Special Objects:", getSpecialObjects(rickMortyCharacters));
